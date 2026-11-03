@@ -62,7 +62,8 @@ public class JwtFilter extends OncePerRequestFilter
                 || requestURI.endsWith("/user/login")
                 || requestURI.endsWith("/user/add")
                 || requestURI.startsWith("/swagger-ui")
-                || requestURI.startsWith("/v3/api-docs");
+                || requestURI.startsWith("/v3/api-docs")
+                || requestURI.startsWith("/actuator");
 
 
         // =====================================================

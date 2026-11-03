@@ -3,7 +3,6 @@ name: microservices-deployment
 services:
   postgresdb:
     image: postgres:16-alpine
-    platform: linux/amd64
     container_name: postgresdb
     restart: unless-stopped
     environment:
@@ -43,6 +42,8 @@ services:
     container_name: api-gateway
     ports:
       - "9000:8000"
+    environment:
+      EUREKA_INSTANCE_STATUSPAGEURL: http://localhost:9000/actuator/info
     depends_on:
       - eureka-server
       - user-service
@@ -60,6 +61,8 @@ services:
     container_name: user-service
     ports:
       - "9001:8001"
+    environment:
+      EUREKA_INSTANCE_STATUSPAGEURL: http://localhost:9001/actuator/info
     depends_on:
       eureka-server:
         condition: service_started
@@ -77,6 +80,8 @@ services:
     container_name: product-service
     ports:
       - "9002:8002"
+    environment:
+      EUREKA_INSTANCE_STATUSPAGEURL: http://localhost:9002/actuator/info
     depends_on:
       eureka-server:
         condition: service_started
@@ -94,6 +99,8 @@ services:
     container_name: order-service
     ports:
       - "9003:8003"
+    environment:
+      EUREKA_INSTANCE_STATUSPAGEURL: http://localhost:9003/actuator/info
     depends_on:
       eureka-server:
         condition: service_started
